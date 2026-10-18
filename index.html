@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Untuk ece ❤️</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{background:#08070d;color:#fff;overflow-x:hidden}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:20}
+.bg{position:fixed;inset:0;background:
+radial-gradient(circle at 20% 15%,rgba(255,120,180,.20),transparent 32%),
+radial-gradient(circle at 80% 85%,rgba(150,100,255,.18),transparent 35%),
+linear-gradient(145deg,#0c0914,#171020 55%,#09070d);z-index:-2}
+.stars{position:fixed;inset:0;z-index:-1;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:45px 45px;opacity:.08}
+.wrap{width:min(92%,650px);margin:auto;padding:28px 0 70px}
+.card{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.13);box-shadow:0 30px 100px #0008;backdrop-filter:blur(18px);border-radius:30px;padding:30px 22px;text-align:center;min-height:590px;display:flex;align-items:center}
+.screen{display:none;width:100%;animation:up .65s ease}.screen.active{display:block}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.pill{display:inline-block;padding:7px 13px;border:1px solid #ffffff22;border-radius:99px;font-size:11px;letter-spacing:2px;color:#e8c9ff}
+h1{font-size:clamp(34px,10vw,58px);line-height:1.05;margin:18px 0}
+h2{font-size:clamp(27px,8vw,42px);line-height:1.1;margin:16px 0}
+p{color:#ddd;line-height:1.75;font-size:16px}
+.big{font-size:21px;font-weight:700;line-height:1.6}
+.muted{color:#aaa;font-size:13px}
+.photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid #ffffff22;box-shadow:0 0 45px #ff8fc855;margin:10px auto 5px;display:block}
+.photo.placeholder{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ff8fc8,#a98cff);font-size:58px}
+button{font:inherit;border:0;border-radius:999px;padding:14px 21px;margin:7px;cursor:pointer;font-weight:750;transition:.2s}
+button:hover{transform:translateY(-2px) scale(1.02)}
+.primary{background:linear-gradient(135deg,#ff83bd,#b994ff);color:#fff;box-shadow:0 10px 30px #d27aff33}
+.ghost{background:#ffffff10;color:#fff;border:1px solid #ffffff1c}
+.choice{display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.progress{height:4px;background:#ffffff12;border-radius:99px;margin:0 auto 24px;max-width:420px}.bar{height:100%;background:#ff8fc8;border-radius:99px;transition:.5s}
+.type{min-height:75px}.cursor{animation:blink 1s infinite}@keyframes blink{50%{opacity:0}}
+.letter{background:#fffafc;color:#302532;border-radius:20px;padding:22px;text-align:left;box-shadow:0 20px 50px #0004;margin:20px 0}
+.letter p{color:#493c47}.signature{text-align:right;font-weight:800}
+.reactions{font-size:42px;letter-spacing:7px;margin:20px 0}
+#photo2{display:none}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="stars"></div><canvas id="fx"></canvas>
+
+<div class="wrap"><div class="card">
+
+<section class="screen active" id="s1">
+  <span class="pill">A LITTLE SECRET 💌</span>
+  <div class="photo placeholder" id="avatar">❤️</div>
+  <h1>Hai, <span class="person">kamu</span>.</h1>
+  <p>Aku punya sesuatu yang sudah cukup lama pengen aku bilang.</p>
+  <p class="muted">Tapi kali ini aku nggak mau cuma mengetiknya di chat.</p>
+  <button class="primary" onclick="next(2)">Buka pesan rahasia ✨</button>
+</section>
+
+<section class="screen" id="s2">
+  <div class="progress"><div class="bar" style="width:20%"></div></div>
+  <span class="pill">CHAPTER 01</span>
+  <h2>Kenapa kamu?</h2>
+  <div class="type big" id="type1"></div>
+  <button class="primary" onclick="next(3)">Lanjut...</button>
+</section>
+
+<section class="screen" id="s3">
+  <div class="progress"><div class="bar" style="width:40%"></div></div>
+  <span class="pill">CHAPTER 02</span>
+  <h2>Beberapa hal kecil.</h2>
+  <p>Yang mungkin menurut kamu biasa...</p>
+  <div class="letter">
+    <p>♡ Cara kamu cerita hal random.</p>
+    <p>♡ Cara kamu bikin obrolan sederhana jadi seru.</p>
+    <p>♡ Cara notif kamu entah kenapa selalu bikin aku penasaran.</p>
+    <p>♡ Dan rasa nyaman yang muncul tanpa aku rencanakan.</p>
+  </div>
+  <button class="primary" onclick="next(4)">Masih ada...</button>
+</section>
+
+<section class="screen" id="s4">
+  <div class="progress"><div class="bar" style="width:60%"></div></div>
+  <span class="pill">CHAPTER 03</span>
+  <h2>Satu pertanyaan.</h2>
+  <p>Kalau ada seseorang yang ternyata menyimpan rasa ke kamu...</p>
+  <p class="big">Menurut kamu, lebih baik dia jujur atau tetap diam?</p>
+  <div class="choice">
+    <button class="primary" onclick="next(5)">Jujur ❤️</button>
+    <button class="ghost" onclick="next(5)">Terserah dia 🫣</button>
+  </div>
+</section>
+
+<section class="screen" id="s5">
+  <div class="progress"><div class="bar" style="width:80%"></div></div>
+  <span class="pill">CHAPTER 04 — HONESTY</span>
+  <h2>Kalau begitu...</h2>
+  <p>Aku akan berhenti pakai kata “seseorang”.</p>
+  <p class="big">Karena orang itu adalah aku.</p>
+  <button class="primary" onclick="next(6)">Baca sampai selesai ❤️</button>
+</section>
+
+<section class="screen" id="s6">
+  <span class="pill">THE LETTER</span>
+  <div class="letter">
+    <p>Untuk <b class="person">kamu</b>,</p>
+    <p>Aku nggak tahu tepatnya sejak kapan rasa ini berubah. Yang aku tahu, belakangan ini kamu jadi salah satu orang yang paling aku tunggu kabarnya.</p>
+    <p>Aku suka kamu. Sesederhana itu, tapi ternyata susah banget buat diucapkan.</p>
+    <p>Aku nggak berharap kamu langsung punya jawaban yang sama. Aku cuma ingin kamu tahu kalau perasaanku ini serius.</p>
+    <p>Kalau kamu juga punya sedikit rasa yang sama, aku ingin kita coba. Pelan-pelan. Nggak harus sempurna.</p>
+    <p class="signature">— Agii ❤️</p>
+  </div>
+  <button class="primary" onclick="next(7)">Pertanyaan terakhir...</button>
+</section>
+
+<section class="screen" id="s7">
+  <span class="pill">ONE LAST QUESTION</span>
+  <h2>Jadi...</h2>
+  <p class="big">Mau nggak kita coba jadi lebih dari sekadar teman, mau gak kamu jadi pacarku?</p>
+  <div class="choice">
+    <button class="primary" onclick="accepted()">💖 IYA, AKU MAU</button>
+    <button class="ghost" onclick="next(8)">🫣 AKU BUTUH WAKTU</button>
+  </div>
+  <p class="muted">Nggak ada jawaban yang salah. Aku cuma mau kamu jujur.</p>
+</section>
+
+<section class="screen" id="s8">
+  <div class="reactions">🫣🤍🌙</div>
+  <span class="pill">NO PRESSURE</span>
+  <h2>Nggak apa-apa.</h2>
+  <p>Aku nggak mau kamu menjawab karena merasa harus.</p>
+  <p class="big">Ambil waktu kamu.</p>
+  <p>Yang penting sekarang kamu tahu kalau aku serius sama kamu.</p>
+  <p class="muted">Kalau nanti kamu sudah siap, aku masih di sini.</p>
+</section>
+
+<section class="screen" id="s9">
+  <div class="reactions">😭💖🎉</div>
+  <span class="pill">SYSTEM SUCCESS</span>
+  <h1>YEAHHH!</h1>
+  <p class="big">Jadi sekarang kita coba jalanin ini bareng? 🥹</p>
+  <p>Terima kasih sudah kasih aku kesempatan.</p>
+  <p>Dan maaf kalau cara nembaknya agak alay...</p>
+  <p class="big">Tapi kamu memang sepenting itu buat aku. ❤️</p>
+  <button class="primary" onclick="sendReply()">💬 Kirim jawaban ke Telegram</button>
+</section>
+
+</div></div>
+
+<script>
+/* ================================
+   PERSONALISASI — UBAH BAGIAN INI
+   ================================ */
+const CONFIG = {
+  nama: "Chelsi",
+  usernameTelegram: "agygyy",
+  foto: "", // contoh: "foto-dia.jpg" jika file foto berada satu folder
+  alasan: "Entah sejak kapan, tapi ngobrol sama kamu selalu terasa sedikit lebih spesial dari yang seharusnya. Kamu punya cara sendiri bikin hari biasa jadi terasa lebih menyenangkan."
+};
+
+document.querySelectorAll(".person").forEach(e=>e.textContent=CONFIG.nama);
+
+if(CONFIG.foto){
+  const img=document.createElement("img"); img.src=CONFIG.foto; img.className="photo";
+  document.getElementById("avatar").replaceWith(img);
+}
+
+function next(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
+  if(n===2) typeText();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+let typed=false;
+function typeText(){
+  if(typed)return; typed=true;
+  const el=document.getElementById("type1");
+  const text=CONFIG.alasan;
+  let i=0;
+  function run(){
+    if(i<text.length){el.innerHTML=text.slice(0,++i)+'<span class="cursor">|</span>';setTimeout(run,28)}
+    else el.innerHTML=text;
+  } run();
+}
+
+function accepted(){
+  next(9); confetti();
+}
+function sendReply(){
+  const msg=encodeURIComponent("Aku sudah baca semuanya... dan jawabanku: IYA ❤️");
+  if(CONFIG.usernameTelegram) window.location.href="https://t.me/"+CONFIG.usernameTelegram+"?text="+msg;
+  else navigator.clipboard?.writeText("Aku sudah baca semuanya... dan jawabanku: IYA ❤️");
+}
+
+function confetti(){
+  const c=document.getElementById("fx"),ctx=c.getContext("2d");
+  c.width=innerWidth;c.height=innerHeight;
+  const a=Array.from({length:180},()=>({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*16,vy:-Math.random()*15-4,g:.35,s:3+Math.random()*6,r:Math.random()*6}));
+  let t=0;
+  function f(){
+    ctx.clearRect(0,0,c.width,c.height);
+    a.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=.12;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=["#ff8fc8","#b994ff","#fff","#ffd36e","#9de7ff"][Math.floor(Math.random()*5)];ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*1.8);ctx.restore()});
+    if(++t<150)requestAnimationFrame(f);else ctx.clearRect(0,0,c.width,c.height);
+  }f();
+}
+</script>
+</body>
+</html>
